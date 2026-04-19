@@ -2,7 +2,7 @@ PortFolio — Indian Stock Portfolio Tracker
 A full-stack MERN application to track your Indian stock market investments across NSE and BSE in real-time.
 
 Live Demo
-
+https://portfolio-tracker-bgcy5p5j5-coderninjaxs-projects.vercel.app
 
 Screenshots
 ![alt text](</img/login.png>)
