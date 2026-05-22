@@ -3,6 +3,7 @@ import { useAuth } from './context/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Screener from './components/Screener';
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth();
@@ -23,6 +24,7 @@ export default function App() {
       <Route path="/login"    element={<PublicRoute><Login /></PublicRoute>} />
       <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
       <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+      <Route path="/screener" element={<PrivateRoute><Screener /></PrivateRoute>} />
     </Routes>
   );
 }

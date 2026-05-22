@@ -6,7 +6,8 @@ require('dotenv').config();
 const authRoutes = require('./routes/auth');
 const portfolioRoutes = require('./routes/portfolio');
 const stockRoutes = require('./routes/stocks');
-
+const screenerRoutes = require('./routes/screener');
+const aiRoutes       = require('./routes/ai');
 const app = express();
 
 app.use(cors());
@@ -16,6 +17,8 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/stocks', stockRoutes);
+app.use('/api/screener', screenerRoutes);
+app.use('/api/ai',       aiRoutes);
 
 // Health check
 app.get('/', (req, res) => res.json({ message: 'Portfolio Tracker API running' }));

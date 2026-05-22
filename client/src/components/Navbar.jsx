@@ -1,4 +1,5 @@
 import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 export default function Navbar({ refreshing, onRefresh }) {
   const { user, logout } = useAuth();
@@ -6,6 +7,7 @@ export default function Navbar({ refreshing, onRefresh }) {
   return (
     <nav style={styles.nav}>
       <div style={styles.logo}>PortFolio</div>
+      <Link to="/screener" style={{ fontSize: 13, color: 'var(--muted2)' }}>Screener</Link>
       <div style={styles.right}>
         {refreshing && <span style={styles.refreshing}>↻ Refreshing…</span>}
         <button className="btn btn-ghost" style={{ fontSize: 13 }} onClick={onRefresh}>
