@@ -29,7 +29,7 @@ Return ONLY valid JSON, no markdown, no explanation.`;
     const { data } = await axios.post(
       'https://api.groq.com/openai/v1/chat/completions',
       {
-        model: 'llama3-8b-8192',
+        model: 'llama-3.1-8b-instant',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: query },
@@ -56,8 +56,9 @@ Return ONLY valid JSON, no markdown, no explanation.`;
 
     res.json({ filters, summary: filters.summary });
   } catch (err) {
-    res.status(500).json({ message: 'AI service error: ' + err.message });
-  }
+  console.error('Groq error:', err.response?.data || err.message);
+  res.status(500).json({ message: 'AI service error: ' + (err.response?.data?.error?.message || err.message) });
+}
 });
 
 module.exports = router;
