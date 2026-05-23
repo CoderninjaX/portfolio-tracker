@@ -10,7 +10,7 @@ router.use(protect);
 const fetchQuote = async (ticker) => {
   try {
     const symbol = `${ticker}.NS`;
-    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}`;
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?modules=price,summaryDetail`;
     const { data } = await axios.get(url, {
       headers: { 'User-Agent': 'Mozilla/5.0' },
       timeout: 5000,
@@ -18,12 +18,29 @@ const fetchQuote = async (ticker) => {
     const meta = data?.chart?.result?.[0]?.meta;
     if (!meta || !meta.regularMarketPrice) return null;
 
+    // Try to get market cap from quote summary endpoint
+    let marketCap = meta.marketCap || null;
+
+    // Fallback: fetch from quoteSummary
+    if (!marketCap) {
+      try {
+        const summaryUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${symbol}?modules=summaryDetail`;
+        const { data: sd } = await axios.get(summaryUrl, {
+          headers: { 'User-Agent': 'Mozilla/5.0' },
+          timeout: 3000,
+        });
+        marketCap = sd?.quoteSummary?.result?.[0]?.summaryDetail?.marketCap?.raw || null;
+      } catch {
+        marketCap = null;
+      }
+    }
+
     return {
       price: meta.regularMarketPrice,
       previousClose: meta.chartPreviousClose,
       change: parseFloat((meta.regularMarketPrice - meta.chartPreviousClose).toFixed(2)),
       changePercent: parseFloat(((meta.regularMarketPrice - meta.chartPreviousClose) / meta.chartPreviousClose * 100).toFixed(2)),
-      marketCap: meta.marketCap || null,
+      marketCap,
       fiftyTwoWeekHigh: meta.fiftyTwoWeekHigh || null,
       fiftyTwoWeekLow: meta.fiftyTwoWeekLow || null,
     };
