@@ -50,13 +50,7 @@ const fetchQuote = async (ticker) => {
 };
 
 // Classify market cap
-const getCapType = (marketCap) => {
-  if (!marketCap) return 'Unknown';
-  const crore = marketCap / 1e7;
-  if (crore >= 20000) return 'Large Cap';
-  if (crore >= 5000) return 'Mid Cap';
-  return 'Small Cap';
-};
+
 
 // @route   POST /api/screener
 // @desc    Screen stocks by filters
@@ -86,7 +80,7 @@ router.post('/', async (req, res) => {
         change: quote.change,
         changePercent: quote.changePercent,
         marketCap: quote.marketCap,
-        capType: getCapType(quote.marketCap),
+        capType: stock.capType,
         fiftyTwoWeekHigh: quote.fiftyTwoWeekHigh,
         fiftyTwoWeekLow: quote.fiftyTwoWeekLow,
       };
