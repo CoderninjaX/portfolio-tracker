@@ -1,5 +1,9 @@
-PortFolio — Indian Stock Portfolio Tracker
-A full-stack MERN application to track your Indian stock market investments across NSE and BSE in real-time.
+PortFolio — AI-Powered Indian Stock Portfolio Tracker & Screener
+Built a full-stack investment platform with a real-time NSE/BSE portfolio tracker and an AI-powered stock screener covering 148 stocks across Nifty 50, Next 50, and Midcap 50
+Integrated Groq LLaMA 3.1 to parse plain-English queries into structured screener filters — e.g. "large cap pharma under ₹2000" — using a custom prompt engineering pipeline
+Implemented JWT-based authentication, bcrypt password hashing, and protected REST API routes across an Express + MongoDB backend
+Fetched live NSE/BSE stock prices and portfolio P&L in INR via Yahoo Finance public API with 60-second auto-refresh
+Deployed frontend on Vercel and backend on Render with MongoDB Atlas; handled production issues including CORS, environment variables, and React Router on Vercel
 
 Live Demo
 https://portfolio-tracker-bgcy5p5j5-coderninjaxs-projects.vercel.app
